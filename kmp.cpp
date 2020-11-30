@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 
+
 int KMP(std::string key, std::string Text);
 int main(){
     // Choose Key
@@ -90,16 +91,11 @@ int KMP(std::string key, std::string Text){
             }
         }
     }
-
     return FinalCounter;
 }
 
 
 
 /*
-
-
 TATTLETALE
-
-
 */
