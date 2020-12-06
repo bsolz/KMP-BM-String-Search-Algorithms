@@ -11,9 +11,9 @@
 #define ASIZE 256
 //10000.txt = 12
 //5000.txt = 6
-//1000.txt=7
-//500.txt=5
-int KMP(std::string key, std::string Text);
+//1000.txt= 7
+//500.txt = 5
+int KMP(char *key, int keySize, char *Text, int textSize);
 void PreBadChar(char *key, int keySize, int BadChar[]);
 void suffixes(char *key, int keySize, int *suff);
 void PreGoodSuff(char *key, int keySize, int GoodSuff[]);
@@ -34,31 +34,14 @@ int main()
         Text += str;
     }
 
-    char x[key.size()];
-    char y[Text.size()];
-
-    for (int i = 0; i < key.size(); i++)
-    {
-        x[i] = key[i];
-    }
-
-    for (int i = 0; i < Text.size(); i++)
-    {
-        y[i] = Text[i];
-    }
-
     time_func("KMP", key, Text);
     time_func("BM", key, Text);
 
     return 0;
 }
 
-int KMP(std::string key, std::string Text)
+int KMP(char *key, int keyLength, char *Text, int textLength)
 {
-
-    // Get length of searched string and key
-    int keyLength = key.size();
-    int textLength = Text.size();
 
     // Create the LPS array
     int lpsArray[keyLength];
@@ -229,7 +212,7 @@ void time_func(const char *name, std::string key, std::string Text)
     if (!strcmp(name, "KMP"))
     {
         c_start = std::clock();
-        val = KMP(key, Text);
+        val = KMP(x, key.size(), y, Text.size());
         c_end = std::clock();
         std::cout << val <<'\n';
     }
