@@ -10,14 +10,15 @@
 // ASCII is the universal keysize
 #define ASCII 256
 
-// 25.txt=1
-// 50.txt=1
-// 100.txt=2
-// 250.txt=5
+// 25.txt = 1
+// 50.txt = 1
+// 100.txt = 2
+// 250.txt = 5
 // 500.txt = 5
-// 1000.txt= 7
+// 1000.txt = 7
 // 5000.txt = 6
 // 10000.txt = 12
+
 
 // BM and KMP Functions
 int KMP(char *key, int keySize, char *Text, int textSize);
@@ -107,7 +108,7 @@ int KMP(char *key, int keyLength, char *Text, int textLength)
     int FinalCounter = 0;
     while (Q < textLength)
     {
-        if (key[W] == Text[Q]) // If indexes match, increment W and Q by 1
+        if (key[W] == Text[Q]) // If values match, increment W and Q by 1
         {
             W++;
             Q++;
@@ -136,8 +137,13 @@ int KMP(char *key, int keyLength, char *Text, int textLength)
 
 void PreBadChar(char *key, int keySize, int BadChar[])
 {
+    // Creates a bad character table that indicates how many indexes to skip when a mismatch is found using the bad character rule
+    // keySize = 10
+    // T A T T L E T A L E
+    // 0 1 2 3 4 5 6 7 8 9
+    // T A L E *
+    // 3 2 1 1 10
     int i;
-
     for (i = 0; i < ASCII; i++)
         BadChar[i] = keySize;
     for (i = 0; i < keySize - 1; i++)
@@ -242,14 +248,14 @@ void time_func(const char *name, std::string key, std::string Text)
         c_start = std::clock();
         val = KMP(x, key.size(), y, Text.size());
         c_end = std::clock();
-        std::cout << "Number of occurences of key: " << val << '\n';
+        std::cout << "Number of occurences of key: " << val <<'\n';
     }
     else if (!strcmp(name, "BM"))
     {
         c_start = std::clock();
         val = BM(x, key.size(), y, Text.size());
         c_end = std::clock();
-        std::cout << "Number of occurences of key: " << val << '\n';
+        std::cout << "Number of occurences of key: " << val <<'\n';
     }
     else
     {
