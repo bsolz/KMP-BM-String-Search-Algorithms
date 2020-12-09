@@ -19,7 +19,6 @@
 // 5000.txt = 6
 // 10000.txt = 12
 
-
 // BM and KMP Functions
 int KMP(char *key, int keySize, char *Text, int textSize);
 int BM(char *key, int keySize, char *text, int textSize);
@@ -48,7 +47,9 @@ int main()
     }
 
     // Run timing functions for each individual function and output time
+    std::cout << "KMP: " << '\n';
     time_func("KMP", key, Text);
+    std::cout << "BM: " << '\n';
     time_func("BM", key, Text);
 
     return 0;
@@ -175,7 +176,6 @@ void suffixes(char *key, int keySize, int *suff)
 void PreGoodSuff(char *key, int keySize, int GoodSuff[])
 {
     int i, suff[keySize];
-
     suffixes(key, keySize, suff);
 
     for (i = 0; i < keySize; i++)
@@ -187,6 +187,11 @@ void PreGoodSuff(char *key, int keySize, int GoodSuff[])
                     GoodSuff[j] = keySize - 1 - i;
     for (i = 0; i <= keySize - 2; i++)
         GoodSuff[keySize - 1 - suff[i]] = keySize - 1 - i;
+
+    // keySize = 10
+    // T A T T L E T A L E
+    // 0  1  2  3  4  5  6  7  8  9
+    // 10 10 10 10 10 10 10 4  10 1
 }
 
 int BM(char *key, int keySize, char *text, int textSize)
@@ -205,6 +210,8 @@ int BM(char *key, int keySize, char *text, int textSize)
     //Searching
     j = 0;
     i = 0;
+
+    // Traverses through the text
     while (j <= textSize - keySize)
     {
         for (i = keySize - 1; i >= 0 && key[i] == text[i + j]; i--)
@@ -214,7 +221,7 @@ int BM(char *key, int keySize, char *text, int textSize)
             finalCounter++;
             j += GoodSuff[0];
         }
-        else
+        else // Determines which preprocessing table to use
             j += std::max(GoodSuff[i], BadChar[text[i + j]] - keySize + 1 + i);
     }
 
@@ -248,14 +255,14 @@ void time_func(const char *name, std::string key, std::string Text)
         c_start = std::clock();
         val = KMP(x, key.size(), y, Text.size());
         c_end = std::clock();
-        std::cout << "Number of occurences of key: " << val <<'\n';
+        std::cout << "Number of occurences of key: " << val << '\n';
     }
     else if (!strcmp(name, "BM"))
     {
         c_start = std::clock();
         val = BM(x, key.size(), y, Text.size());
         c_end = std::clock();
-        std::cout << "Number of occurences of key: " << val <<'\n';
+        std::cout << "Number of occurences of key: " << val << '\n';
     }
     else
     {

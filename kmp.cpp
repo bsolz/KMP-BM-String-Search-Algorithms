@@ -7,8 +7,7 @@
 #include <fstream>
 #include <string>
 
-
-int KMP(std::string key, std::string Text);
+int KMP(char *key, int keySize, char *Text, int textSize);
 int main(){
     // Choose Key
     std::string key = "TATTLETALE";
@@ -22,18 +21,27 @@ int main(){
         Text += str;
     }
 
+    //copies key into x and text into y
+    char x[key.size()];
+    char y[Text.size()];
+    for (int i = 0; i < key.size(); i++)
+    {
+        x[i] = key[i];
+    }
+
+    for (int i = 0; i < Text.size(); i++)
+    {
+        y[i] = Text[i];
+    }
+
     // Run algorithm and have it output how many times the word appears in the text file
 
-    std::cout << KMP(key, Text) << '\n';
+    std::cout << KMP(x, key.size(),y,Text.size()) << '\n';
     // Output run time
     return 0;
 }
 
-int KMP(std::string key, std::string Text){
-
-    // Get length of searched string and key
-    int keyLength = key.size();
-    int textLength =  Text.size();
+int KMP(char *key, int keyLength, char *Text, int textLength){
 
 
     // Create the LPS array
@@ -93,8 +101,6 @@ int KMP(std::string key, std::string Text){
     }
     return FinalCounter;
 }
-
-
 
 /*
 TATTLETALE
